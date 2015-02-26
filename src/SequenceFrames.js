@@ -9,10 +9,10 @@
 
 function SequenceFrames(id,url,timers,vtotal,complate){
 
-	var images = new Array();
-	var imageURL = url;
+    var images = new Array();
+    var imageURL = url;
     var myCanvas =document.getElementById(id);
-	var ctx=myCanvas.getContext("2d");
+    var ctx=myCanvas.getContext("2d");
     var step = 0;
     var handler;
     var total = vtotal;
@@ -21,7 +21,9 @@ function SequenceFrames(id,url,timers,vtotal,complate){
     var _this = this;
     var interval = timers; 
     var playReverse = false;
+
     complate = complate || Function;
+
     function loadImages () { 
         var imageCounter = 0; 
         var onLoad = function(err, msg) { 
@@ -29,7 +31,7 @@ function SequenceFrames(id,url,timers,vtotal,complate){
                 console.log(msg); 
             } 
             imageCounter++; 
-            if (imageCounter == total) { 
+            if (imageCounter == total) {  
                 loadedImages = true; 
                 _this.play();
                 complate();
@@ -38,8 +40,8 @@ function SequenceFrames(id,url,timers,vtotal,complate){
 
         for (var i = 0; i < total; i++) { 
             var img = new Image(); 
-            img.onload = function() { onLoad(false); }; 
-            img.onerror = function() { onLoad(true, e);}; 
+            img.onload = function(e) { onLoad(false); }; 
+            img.onerror = function(e) { onLoad(true, e);}; 
             img.src = imageURL+'/'+i+'.jpg';
             images[i] = img; 
         } 
@@ -47,7 +49,7 @@ function SequenceFrames(id,url,timers,vtotal,complate){
 
 
     // 绘制图片
-    function Rendering (index) { 
+    function rendering (index) { 
         if (!loadedImages) 
             return; 
         var image = images[index]; 
@@ -56,7 +58,7 @@ function SequenceFrames(id,url,timers,vtotal,complate){
         var ratio = getScaleRatio({width:image.width, height:image.height}, {width:screen_w, height:screen_h}); 
         var img_h = image.height * ratio; 
         var img_w = image.width * ratio; 
-        ctx.drawImage(image, (screen_w - img_w)/2, (screen_h - img_h)/2, img_w, img_h); 
+        ctx.drawImage(image, (screen_w - img_w)*0.5, (screen_h - img_h)*0.5, img_w, img_h); 
 
     }
 
@@ -68,19 +70,28 @@ function SequenceFrames(id,url,timers,vtotal,complate){
 
 
     function next (){
-            step++;
-            if(step==loopEnd){
-                    step = loopStart;
-            }
-            if(step>=total){
-                stop();
-                return false;
-            }else{
-                 Rendering(step)
-            }
+        step++;
+        if(step==loopEnd){
+                step = loopStart;
+        }
+        if(step>=total){
+            stop();
+            return false;
+        }else{
+             rendering(step)
+        }
 
     }
 
+    function previous () {
+        step--;
+        if(step<loopStart){
+            step = loopEnd;
+        }else{
+             rendering(step)
+        }
+        console.log(step)
+    }
 
     /*
         对外开放接口
@@ -96,9 +107,13 @@ function SequenceFrames(id,url,timers,vtotal,complate){
         clearInterval(handler);
     }
     //播放
-    this.play =function (){
+    this.play = function (){
         _this.stop();
-         handler = setInterval(next,interval);
+        handler = setInterval(next,interval);
+    }
+    this.prev = function(){
+        _this.stop();
+        handler = setInterval(previous,interval);
     }
     //从第n帧开始播放
     this.gotoAndPlay = function(n){
@@ -109,10 +124,24 @@ function SequenceFrames(id,url,timers,vtotal,complate){
     }
     //停止到第n帧
     this.gotoAndStop = function(n){
-        Rendering(n)
+        rendering(n)
         clearInterval(handler);
         step = n;
     }
-
+    this.nextFrame = function(e){
+        var loop = e || true;
+        if(loop){
+            loopStart = 0;
+            loopEnd = total;
+        }
+        _this.play();
+    }
+    this.prevFrame = function(e){
+        var loop = e || true;
+        if(loop){
+            _this.setLoop(0,total)
+        }
+        _this.prev();
+    }
     loadImages();
 }
