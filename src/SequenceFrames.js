@@ -33,7 +33,7 @@ function SequenceFrames(id,url,timers,vtotal,complate){
             imageCounter++; 
             if (imageCounter == total) {  
                 loadedImages = true; 
-                _this.play();
+                rendering(0)
                 complate();
             } 
         } 
@@ -111,6 +111,7 @@ function SequenceFrames(id,url,timers,vtotal,complate){
         _this.stop();
         handler = setInterval(next,interval);
     }
+    //向前播放
     this.prev = function(){
         _this.stop();
         handler = setInterval(previous,interval);
@@ -128,14 +129,15 @@ function SequenceFrames(id,url,timers,vtotal,complate){
         clearInterval(handler);
         step = n;
     }
+    //正转循环
     this.nextFrame = function(e){
         var loop = e || true;
         if(loop){
-            loopStart = 0;
-            loopEnd = total;
+            _this.setLoop(0,total)
         }
         _this.play();
     }
+    //倒转循环
     this.prevFrame = function(e){
         var loop = e || true;
         if(loop){
