@@ -7,7 +7,7 @@
  * 
 */
 
-function SequenceFrames(id,url,timers,vtotal,complate){
+function SequenceFrames(id,url,vtotal,timers,complate){
 
     var images = new Array();
     var imageURL = url;
@@ -15,13 +15,14 @@ function SequenceFrames(id,url,timers,vtotal,complate){
     var ctx=myCanvas.getContext("2d");
     var step = 0;
     var handler;
-    var total = vtotal;
+    var total = vtotal;//图片总数
     var loopStart = 0;
     var loopEnd = 0;
     var _this = this;
-    var interval = timers; 
+    var interval
     var playReverse = false;
 
+    interval = timers || 60;
     complate = complate || Function;
 
     function loadImages () { 
