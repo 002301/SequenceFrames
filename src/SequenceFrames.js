@@ -1,13 +1,13 @@
 /*
  *  SequenceFrames 0.1 
- *  播放图片序列帧的js类,借助canvas标签实现序列帧小混混播放。
+ *  播放图片序列帧的js类,借助canvas标签实现序列帧播放。
  *  http://www.airmn.com/SequenceFrames/demo
  *
  *  Copyright 2015,  MaNing
  * 
 */
 
-function SequenceFrames(id,url,vtotal,timers,complate){
+function SequenceFrames(id,url,vtotal,complate){
 
     var images = new Array();
     var imageURL = url;
