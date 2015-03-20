@@ -76,7 +76,7 @@ function SequenceFrames(id,url,vtotal,complate){
                 step = loopStart;
         }
         if(step>=total){
-            stop();
+             clearInterval(handler);
             return false;
         }else{
              rendering(step)
