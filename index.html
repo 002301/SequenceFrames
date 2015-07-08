@@ -9,6 +9,34 @@
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
     <title>Sequenceframes</title>
+      <script src="javascripts/SequenceFrames.js"></script>
+  <style>
+  body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 13px;
+      line-height: 1.5;
+      position: relative;
+      height: 100%;
+  }
+  a{text-decoration: none;color:#fff;}
+    #mycanvas{width:100%;}
+    #loading{
+      width:100%;
+      height:100%;
+      background:#333333;
+      position:absolute;
+      top:0px;
+      left:0px;
+      z-index: 9999;
+    }
+    #loading img{left:50%;top:50%;position:relative;transform:translate(-200px,-150px);}
+    #menu{position: absolute;list-style-type: none;z-index: 100;padding:0px;margin:0px;width:520px;left:50%;transform:translate(-260px,0px);}
+    #menu li a{width:100%;height: 100%;display: block;color:#666;}
+    #menu li{border:1px solid  #fff;background:#e3e3e3;border-radius: 0px 0px 15px 15px;text-align: center;height:50px;line-height: 50px;font-size: 16px;left:0px;position: relative;float:left;width:100px;margin-left:3px;}
+    #left,#right{font-size: 80px;color:#fff;position: absolute;top:50%; }
+    #right{right:0px;}
+  </style>
   </head>
 
   <body>
@@ -31,27 +59,55 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <hr>
+          <div id="loading"><img src="images/loading.gif" alt=""></div>
+          <ul id="menu">
+            <li><a href="javascript:void(0);" onclick="sf.play()">播放</a></li>
+            <li><a href="javascript:void(0);" onclick="sf.stop()">停止</a></li>
+            <li><a href="javascript:void(0);" onclick="sf.gotoAndPlay(10)">从第10张播放</a></li>
+            <li><a href="javascript:void(0);" onclick="sf.gotoAndStop(10)">停止到第10张</a></li>
+          </ul>
+          <div id="left"><a href="javascript:void(0);" onmousedown="sf.nextFrame()" onmouseup="sf.stop()"><</a></div>
+          <div id="right"><a href="javascript:void(0);" onmousedown="sf.prevFrame()" onmouseup="sf.stop()" >></a></div>
+          <canvas id="mycanvas" width=1000 height=562></canvas>
 
-<p>//引入库</p>
+          <script>
+
+          function $(id){
+            return document.getElementById(id);
+          }
+          
+          var sf = new SequenceFrames("mycanvas","images",29,function(){$("loading").style.display = "none";},function(){alert("播放完毕")});
 
 
+          //----------------------------------------触摸控制---------------------------------------------------------------------
+          var moveStart
 
-<p>//添加到</p>里面
-
-
-
-
-<hr>
-
-<p>可以实现以下操作
-sf.play()//播放
-sf.stop()//停止
-sf.gotoAndPlay(10)//从第10张播放
-sf.gotoAndStop(10)//停止到第10张图片
-sf.loop(5,10)//循环播放5～10张图片</p>
-
-<p>demo：<a href="http://www.airmn.com/SequenceFrames/demo/">http://www.airmn.com/SequenceFrames/demo/</a></p>
+          function handleTouchEvent(event) {
+              //只跟踪一次触摸
+              if (event.touches.length == 1) {
+                  switch (event.type) {
+                      case "touchstart":
+                        moveStart = event.touches[0].clientX;
+                          break;
+                      case "touchend":
+                          sf.stop()
+                          break;
+                      case "touchmove":
+                          event.preventDefault(); //阻止滚动
+                          if((event.touches[0].clientX-moveStart)>0){
+                            sf.nextFrame();
+                          }else{
+                            sf.prevFrame();
+                          }
+                          moveStart = event.touches[0].clientX;
+                          break;
+                  }
+              }
+          }
+          document.addEventListener("touchstart", handleTouchEvent, false);
+          document.addEventListener("touchend", handleTouchEvent, false);
+          document.addEventListener("touchmove", handleTouchEvent, false);
+          </script>
       </section>
     </div>
 
