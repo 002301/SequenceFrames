@@ -50,39 +50,50 @@
 	function $(id){
 		return document.getElementById(id);
 	}
-	
-	var sf = new SequenceFrames("mycanvas","images",29,function(){$("loading").style.display = "none";});
+	var sf
+	function slFun(){
+		var path = "images/";
+		var resource = [];
+		for (var i = 0; i <30; i++) {
+			resource.push(path+i+'.jpg');
+		};
+		sf = new SequenceFrames("mycanvas",resource,function(){$("loading").style.display = "none";});
+		//sf.setInterval(120);
+	}
 
 
 	//----------------------------------------触摸控制---------------------------------------------------------------------
-	var moveStart
+var moveStart
+function handleTouchEvent(event) {
+    //只跟踪一次触摸
+    // console.log(event.touches.length)
+    if (event.touches.length <= 1) {
+        switch (event.type) {
+            case "touchstart":
+            	moveStart = moveStart2 = event.touches[0].clientX;
+                break;
+            case "touchmove":
+                event.preventDefault(); //阻止滚动
+                moveStart2 = event.touches[0].clientX;
+                if((moveStart2-moveStart)>0){
+                	sf.prev();
+                	forward=false;
+                }else{
+                	sf.next();
+                	forward=true;
+                } 
+                break;
+            case "touchend":
+            	//console.log('end');
+                break;
+        }
+    }
+}
 
-	function handleTouchEvent(event) {
-	    //只跟踪一次触摸
-	    if (event.touches.length == 1) {
-	        switch (event.type) {
-	            case "touchstart":
-	            	moveStart = event.touches[0].clientX;
-	                break;
-	            case "touchend":
-	                sf.stop()
-	                break;
-	            case "touchmove":
-	                event.preventDefault(); //阻止滚动
-	                if((event.touches[0].clientX-moveStart)>0){
-	                	sf.nextFrame();
-	                }else{
-	                	sf.prevFrame();
-	                }
-	                moveStart = event.touches[0].clientX;
-	                break;
-	        }
-	    }
-	}
 	document.addEventListener("touchstart", handleTouchEvent, false);
 	document.addEventListener("touchend", handleTouchEvent, false);
 	document.addEventListener("touchmove", handleTouchEvent, false);
-
+	slFun()
 	</script>
 </body>
 </html>

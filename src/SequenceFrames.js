@@ -1,5 +1,5 @@
 /*
- *  SequenceFrames 0.3 
+ *  SequenceFrames 0.3.1 
  *  播放图片序列帧的js类,借助canvas标签实现序列帧播放。
  *  http://www.airmn.com/SequenceFrames/demo
  *
@@ -7,7 +7,7 @@
  * 
 */
 
-function SequenceFrames(id,url,vtotal,complate,end){
+function SequenceFrames(id,url,complate,end){
 
     var images = new Array();
     var imageURL = url;
@@ -15,7 +15,7 @@ function SequenceFrames(id,url,vtotal,complate,end){
     var ctx=myCanvas.getContext("2d");
     var step = 0;
     var handler;
-    var total = vtotal;//图片总数
+    var total = 0;//图片总数
     var loopStart = 0;
     var loopEnd = 0;
     var _this = this;
