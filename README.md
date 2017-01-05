@@ -7,6 +7,9 @@ demo：http://002301.github.io/SequenceFrames/
 demo：http://www.airmn.com/SequenceFrames/demo/
 
 
+ SequenceFrames 0.3.2
+ 修改了png图片序列帧问题
+ 修改了用png图片播放序列帧时没有清空画面的问题
  SequenceFrames 0.3.1 
 
 添加了

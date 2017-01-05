@@ -1,7 +1,7 @@
 /*
- *  SequenceFrames 0.3.1 
+ *  SequenceFrames 0.3.2 
  *  播放图片序列帧的js类,借助canvas标签实现序列帧播放。
- *  http://www.airmn.com/SequenceFrames/demo
+ *  https://github.com/002301/SequenceFrames/
  *
  *  Copyright 2015,  MaNing
  * 
@@ -62,7 +62,8 @@ function SequenceFrames(id,url,complate,end){
             var screen_w = myCanvas.width; 
             var ratio = getScaleRatio({width:image.width, height:image.height}, {width:screen_w, height:screen_h}); 
             var img_h = image.height * ratio; 
-            var img_w = image.width * ratio; 
+            var img_w = image.width * ratio;
+            ctx.clearRect((screen_w - img_w)*0.5, (screen_h - img_h)*0.5, img_w, img_h);//清空画布 
             ctx.drawImage(image, (screen_w - img_w)*0.5, (screen_h - img_h)*0.5, img_w, img_h); 
         }
     }
