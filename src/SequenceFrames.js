@@ -117,7 +117,7 @@ function SequenceFrames(id,url,complate,end){
         _this.nextFrameStop(loopEnd);
     }
     //到播
-    this.yoyo = function (){
+    this.reverse = function (){
         prev();
         _this.prevFrameStop(loopStart);
     }

@@ -9,7 +9,7 @@ SequenceFrames 0.3.3
 修改play()为正向播放1次
 
 添加到播1次
-yoyo()
+reverse()
 
 SequenceFrames 0.3.2
 修改了png图片序列帧问题
