@@ -25,7 +25,14 @@
 		  z-index: 9999;
 		}
 		#loading img{left:50%;top:50%;position:relative;transform:translate(-200px,-150px);}
-		#menu{position: absolute;list-style-type: none;z-index: 100;padding:0px;margin:0px;width:620px;left:50%;transform:translate(-260px,0px);}
+		#menu{position: absolute;    
+			list-style-type: none;
+		    z-index: 100;
+		    padding: 0px;
+		    margin: 0px;
+		    width: 750px;
+		    left: 50%;
+		    transform: translate(-375px,0px);}
 		#menu li a{width:100%;height: 100%;display: block;color:#666;}
 		#menu li{border:1px solid  #fff;background:#e3e3e3;border-radius: 0px 0px 15px 15px;text-align: center;height:50px;line-height: 50px;font-size: 16px;left:0px;position: relative;float:left;width:100px;margin-left:3px;}
 		#left,#right{font-size: 80px;color:#fff;position: absolute;top:50%; }
@@ -35,11 +42,13 @@
 <body>
 	<div id="loading"><img src="images/loading.gif" alt=""></div>
 	<ul id="menu">
-		<li><a href="javascript:void(0);" onclick="sf.setLoop()">循环</a></li>
-		<li><a href="javascript:void(0);" onclick="sf.play()">播放</a></li>
+		<li><a href="javascript:void(0);" onclick="sf.yoyo()">倒播</a></li>
+		<li><a href="javascript:void(0);" onclick="sf.play()">正播</a></li>
 		<li><a href="javascript:void(0);" onclick="sf.stop()">停止</a></li>
 		<li><a href="javascript:void(0);" onclick="sf.gotoAndPlay(10)">从第10张播放</a></li>
 		<li><a href="javascript:void(0);" onclick="sf.gotoAndStop(10)">停止到第10张</a></li>
+		<li><a href="javascript:void(0);" onclick="sf.nextFrameStop(5)">正播到第5张</a></li>
+		<li><a href="javascript:void(0);" onclick="sf.prevFrameStop(15)">倒播到第15张</a></li>
 	</ul>
 	<div id="left"><a href="javascript:void(0);" onmousedown="sf.nextFrame()" onmouseup="sf.stop()"><</a></div>
 	<div id="right"><a href="javascript:void(0);" onmousedown="sf.prevFrame()" onmouseup="sf.stop()" >></a></div>

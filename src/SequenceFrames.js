@@ -1,5 +1,5 @@
 /*
- *  SequenceFrames 0.3.2 
+ *  SequenceFrames 0.3.3 
  *  播放图片序列帧的js类,借助canvas标签实现序列帧播放。
  *  https://github.com/002301/SequenceFrames/
  *
@@ -7,20 +7,21 @@
  * 
 */
 
+
 function SequenceFrames(id,url,complate,end){
 
     var images = new Array();
     var imageURL = url;
     var myCanvas =document.getElementById(id);
     var ctx=myCanvas.getContext("2d");
-    var step = 0;
-    var handler;
+    var step = 0;//当前帧
+    var handler;//时间事件
     var total = 0;//图片总数
     var loopStart = 0;
     var loopEnd = 0;
     var _this = this;
-    var interval = 60;
-    var playReverse = false;
+    var interval = 60; //设置帧数
+    var _status="";
 
     complate = complate || Function;
     end = end || Function;
@@ -73,28 +74,34 @@ function SequenceFrames(id,url,complate,end){
        var hh = obj2.height/obj1.height;
        return (ww>hh)?ww:hh;
     }
+
+
     function next(){
         step++;
         //console.log(step);
-        if(step>=loopEnd){
+        if(step<=loopEnd){
+            rendering(step);  
+        }else{
             step = loopStart;
         }
-        rendering(step);
+          
+        
     }
-
+    //向后播放t为true时循环播放，默认不循环
     function prev(){
         step--;
-        if(step<loopStart){
+        if(step>=loopStart){
+            rendering(step);
+        }else{
             step = loopEnd;
         }
-        rendering(step);
     }
 
     /*
         对外开放接口
     */
 
-    //循环
+    //设置循环起始帧和结束帧
     this.setLoop = function (n,m){
         loopStart = n;
         loopEnd = m;
@@ -104,10 +111,15 @@ function SequenceFrames(id,url,complate,end){
         //console.log('end')
         clearInterval(handler);
     }
-    //播放
+    //正向播放
     this.play = function (){
-        _this.stop();
-        handler = setInterval(next,interval);
+        next();
+        _this.nextFrameStop(loopEnd);
+    }
+    //到播
+    this.yoyo = function (){
+        prev();
+        _this.prevFrameStop(loopStart);
     }
     //下一帧
     this.next =function(){
@@ -131,20 +143,15 @@ function SequenceFrames(id,url,complate,end){
         step = n;
     }
     //正转循环
-    this.nextFrame = function(e){
-        var loop = e || true;
-        if(loop){
-            _this.setLoop(0,total)
-        }
-        _this.play();
+    this.nextFrame = function(){
+        next();
+        handler = setTimeout(function(){_this.nextFrame()},interval); 
+        // _this.play();
     }
     //倒转循环
-    this.prevFrame = function(e){
-        var loop = e || true;
-        if(loop){
-            _this.setLoop(0,total)
-        }
-        _this.prev();
+    this.prevFrame = function(){
+        prev()
+         handler = setTimeout(function(){_this.prevFrame()},interval); 
     }
     //获取当前帧
     this.currentFrame = function(){
@@ -155,30 +162,44 @@ function SequenceFrames(id,url,complate,end){
         var goNum = n;
         var nfend = nfend || Function;
         //console.log(goNum+"    :"+step)
-        if(goNum!=step){
-           _this.next();
-           handler = setTimeout(function(){_this.nextFrameStop(goNum,nfend)},interval); 
-        }else{
+        if(_status!=""){
             _this.stop();
-            nfend();
         }
+
+           if(goNum!=step){
+                _status="nextFrameStop";
+               _this.next();
+               handler = setTimeout(function(){_this.nextFrameStop(goNum,nfend)},interval); 
+            }else{
+                _this.stop();
+                _status="";
+                nfend();
+            } 
+        
     }
     //向前播放并停止到某帧
     this.prevFrameStop = function(n,nfend){
         var goNum = n;
         var nfend = nfend || Function;
+        if(_status!=""){
+            _this.stop();
+        }
         if(goNum!=step){
+            _status="prevFrameStop";
            _this.prev();
            handler = setTimeout(function(){_this.prevFrameStop(goNum,nfend)},interval); 
         }else{
             _this.stop();
+            _status="";
             nfend();
         }
     }
-
+    //设置播放间隔时间（毫秒）
     this.setInterval = function (n){
         interval =n;
         //console.log(interval)
     }
     loadImages();
 }
+
+

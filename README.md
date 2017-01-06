@@ -4,13 +4,17 @@ This is a picture frame sequence of play items, the order can be achieved by js 
 
 demo：http://002301.github.io/SequenceFrames/
 
-demo：http://www.airmn.com/SequenceFrames/demo/
 
+SequenceFrames 0.3.3
+修改play()为正向播放1次
 
- SequenceFrames 0.3.2
- 修改了png图片序列帧问题
- 修改了用png图片播放序列帧时没有清空画面的问题
- SequenceFrames 0.3.1 
+添加到播1次
+yoyo()
+
+SequenceFrames 0.3.2
+修改了png图片序列帧问题
+修改了用png图片播放序列帧时没有清空画面的问题
+SequenceFrames 0.3.1 
 
 添加了
 nextFrameStop 向前播放到某帧
@@ -25,5 +29,5 @@ url：为序列帧地址数组
 complate：加载完毕
 end：播放完毕
 
-  SequenceFrames 0.2
-  添加了触摸屏支持
+SequenceFrames 0.2
+添加了触摸屏支持
