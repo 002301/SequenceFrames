@@ -6,6 +6,7 @@ demo：http://002301.github.io/SequenceFrames/
 
 
 SequenceFrames 0.3.3
+
 修改play()为正向播放1次
 
 添加到播1次
