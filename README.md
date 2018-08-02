@@ -5,20 +5,19 @@ This is a picture frame sequence of play items, the order can be achieved by js 
 
 
 使用方法：
-'''html
+```html
 <canvas id="mycanvas" width=1000 height=562></canvas>
 <script>
-
-	var sf
-	function slFun(){
-		var arr =['img1.jpg','img2.jpg','img3.jpg']
-		sf = new SequenceFrames("mycanvas",arr,function(){console.log('加载完成');sf.play()});
-		//sf.setInterval(120);//
-	}
-	slFun();
+var sf
+function slFun(){
+	var arr =['img1.jpg','img2.jpg','img3.jpg']
+	sf = new SequenceFrames("mycanvas",arr,function(){console.log('加载完成');sf.play()});
+	//sf.setInterval(120);//
+}
+slFun();
 </script>
+```
 
-'''
 | 属性 | 说明 | 示例|
 |---|---|---|
 | play() | 顺序播放 | sf.play()|
