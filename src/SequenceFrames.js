@@ -1,4 +1,4 @@
-/*
+/**
  *  SequenceFrames 0.3.3 
  *  播放图片序列帧的js类,借助canvas标签实现序列帧播放。
  *  https://github.com/002301/SequenceFrames/
@@ -7,7 +7,13 @@
  * 
 */
 
-
+/**
+ *  SequenceFrames 函数
+ *  @id :String 需要显示的canvas Id名称
+ *  @url :Array 序列帧图片数组
+ *  @complate :function 加载完毕调用函数
+ *  @end :function 播放完毕调用函数
+*/
 function SequenceFrames(id,url,complate,end){
 
     var images = new Array();
