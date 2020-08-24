@@ -1,0 +1,23 @@
+{
+  "name": "sequence-frames",
+  "version": "1.0.0",
+  "description": "这是一个图片序列帧播放项目，通过js能够实现图片的顺序播放，循环播放。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/002301/SequenceFrames.git"
+  },
+  "keywords": [
+    "frames",
+    "images"
+  ],
+  "author": "maning",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/002301/SequenceFrames/issues"
+  },
+  "homepage": "https://github.com/002301/SequenceFrames#readme"
+}
