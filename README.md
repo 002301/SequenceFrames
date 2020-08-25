@@ -7,6 +7,9 @@ This is a picture frame sequence of play items, the order can be achieved by js 
 
 NPM
 
+>npm i sequence-frames
+
+
 使用方法：
 ```html
 <div id="mycanvas" width=1000 height=562></div>
