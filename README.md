@@ -1,4 +1,4 @@
-[![NPM](https://nodei.co/npm/sequence-frames.png?compact=true)]
+![NPM](https://nodei.co/npm/sequence-frames.png?compact=true)
 
 # SequenceFrames
 这是一个图片序列帧播放项目，通过js能够实现图片的顺序播放，循环播放。
@@ -58,5 +58,5 @@ slFun();
 | playTo(int) | 播放并停止到某帧 | sf.playTo(20)|
 
 
-[demo](http://002301.github.io/SequenceFrames/)
+[demo](http://002301.github.io/SequenceFrames/demo/)
 
